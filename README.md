@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash or powershell idk doesnt matter
-npm run dev **this is what i used when developing, download one of these on your "machine" for dev
+npm run dev #this is what i used when developing, download one of these on your "machine" for dev
 # or
 yarn dev
 # or
