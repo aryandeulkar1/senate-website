@@ -11,8 +11,8 @@ const menuItems = [
 
 const socialItems = [
   { label: 'Twitter', link: 'https://twitter.com' },
-  { label: 'GitHub', link: 'https://github.com' },
-  { label: 'LinkedIn', link: 'https://linkedin.com' },
+  { label: 'Instagram', link: 'https://www.instagram.com/carmel_senate/?next=%2F' },
+  { label: 'Linktree', link: 'https://linktr.ee/CarmelSenate' },
 ];
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
         openMenuButtonColor="#4c13e7ff"
         changeMenuColorOnOpen={true}
         colors={['#B19EEF', '#5227FF']}
-        logoUrl="/path-to-your-logo.svg"
+        logoUrl="/greyhound-logo.png"
         accentColor="#d8db24ff"
         onMenuOpen={() => console.log('Menu opened')}
         onMenuClose={() => console.log('Menu closed')}
