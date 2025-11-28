@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from 'react';
 import StaggeredMenu from '../components/StaggeredMenu';
+import PrismaticBurst from '../components/PrismaticBurst';
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
@@ -16,8 +18,35 @@ const socialItems = [
 ];
 
 export default function Home() {
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setMousePos({ x: Math.max(0, Math.min(1, x)), y: Math.max(0, Math.min(1, y)) });
+  };
+
   return (
-    <div style={{ height: '100vh', background: '#1a1a1a' }}>
+    <div 
+      style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}
+      onMouseMove={handleMouseMove}
+    >
+      
+      {/* Background with mouse position passed as prop */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+        <PrismaticBurst
+          animationType="hover"
+          colors={['#0000FF', '#FFFF00', '#000000']}
+          intensity={2}
+          speed={0.5}
+          distort={5}
+          hoverDampness={0.3}
+          mousePosition={mousePos}
+        />
+      </div>
+
+      {/* Menu - directly as child, will handle its own positioning */}
       <StaggeredMenu
         position="right"
         items={menuItems}
