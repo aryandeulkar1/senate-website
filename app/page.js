@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import StaggeredMenu from '../components/StaggeredMenu';
 import PrismaticBurst from '../components/PrismaticBurst';
+import TextType from '../components/TextType';
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
@@ -43,6 +44,42 @@ export default function Home() {
           distort={5}
           hoverDampness={0.3}
           mousePosition={mousePos}
+        />
+      </div>
+
+      {/* Main Content - Centered Text */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: 5,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        pointerEvents: 'none'
+      }}>
+        <TextType
+          text={[
+            "Welcome to Carmel Senate",
+            "Leading with Vision",
+            "Serving Our Community"
+          ]}
+          as="h1"
+          typingSpeed={80}
+          deletingSpeed={50}
+          pauseDuration={2000}
+          loop={true}
+          showCursor={true}
+          cursorCharacter="|"
+          textColors={['#FFFF00', '#0000FF', '#FFFFFF']}
+          className="senate-heading"
+          style={{
+            fontSize: '3rem',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
+            padding: '0 2rem'
+          }}
         />
       </div>
 
