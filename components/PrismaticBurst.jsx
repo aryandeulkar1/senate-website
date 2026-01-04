@@ -240,7 +240,10 @@ const PrismaticBurst = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Reduce quality on mobile/low-end devices
+    const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    
     let renderer;
     
     try {
@@ -248,7 +251,8 @@ const PrismaticBurst = ({
         dpr,
         alpha: true,
         antialias: false,
-        premultipliedAlpha: false
+        premultipliedAlpha: false,
+        powerPreference: 'high-performance'
       });
     } catch (e) {
       console.error('Failed to create WebGL renderer:', e);
@@ -360,9 +364,20 @@ const PrismaticBurst = ({
     let raf = 0;
     let last = performance.now();
     let accumTime = 0;
+    let frameCount = 0;
+    const targetFPS = isMobile ? 30 : 60;
+    const frameInterval = 1000 / targetFPS;
 
     const update = now => {
       const dt = Math.max(0, now - last) * 0.001;
+      const elapsed = now - last;
+      
+      // Skip frames on mobile to maintain performance
+      if (isMobile && elapsed < frameInterval) {
+        raf = requestAnimationFrame(update);
+        return;
+      }
+      
       last = now;
       const visible = isVisibleRef.current && !document.hidden;
       

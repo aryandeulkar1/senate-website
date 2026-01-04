@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import StaggeredMenu from '../components/StaggeredMenu';
-import PrismaticBurst from '../components/PrismaticBurst';
 import TextType from '../components/TextType';
 
+// Lazy load PrismaticBurst - only load when needed
+const PrismaticBurst = dynamic(() => import('../components/PrismaticBurst'), {
+  ssr: false,
+  loading: () => <div style={{ background: '#000', position: 'absolute', inset: 0 }} />
+});
+
 const menuItems = [
-  { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-  { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
-  { label: 'Services', ariaLabel: 'View our services', link: '/services' },
-  { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' },
+  { label: 'Home', ariaLabel: 'Go to home page', link: '#home' },
+  { label: 'Events', ariaLabel: 'View our events', link: '#events' },
+  { label: 'About', ariaLabel: 'Learn about us', link: '#about' },
+  { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' },
 ];
 
 const socialItems = [
@@ -20,43 +26,154 @@ const socialItems = [
 
 export default function Home() {
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [zoomLevel, setZoomLevel] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef(null);
+  const lastMouseUpdate = useRef(0);
 
+  // Detect mobile on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Throttle mouse movement on mobile
   const handleMouseMove = (e) => {
+    if (isMobile) return; // Disable mouse tracking on mobile entirely
+    
+    const now = Date.now();
+    if (now - lastMouseUpdate.current < 50) return; // Throttle to 20fps max
+    lastMouseUpdate.current = now;
+
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
     setMousePos({ x: Math.max(0, Math.min(1, x)), y: Math.max(0, Math.min(1, y)) });
   };
 
+  useEffect(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY;
+          const maxScroll = window.innerHeight;
+          const progress = Math.min(scrolled / maxScroll, 1);
+          setScrollProgress(progress);
+          setZoomLevel(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Memoize calculations to prevent unnecessary re-renders
+  const portalDepth = useMemo(() => zoomLevel * 5, [zoomLevel]);
+  const fadeOpacity = useMemo(() => 
+    zoomLevel < 0.7 ? 1 : 1 - ((zoomLevel - 0.7) / 0.3), [zoomLevel]
+  );
+  const contentOpacity = useMemo(() => 
+    zoomLevel > 0.7 ? (zoomLevel - 0.7) / 0.3 : 0, [zoomLevel]
+  );
+  const titleOpacity = useMemo(() => 1 - (zoomLevel * 2), [zoomLevel]);
+
+  // Reduce quality on mobile
+  const burstProps = useMemo(() => ({
+    animationType: isMobile ? "rotate" : "hover",
+    colors: ['#0000FF', '#FFFF00', '#000000'],
+    intensity: isMobile ? 1.5 : 2 + zoomLevel * 2,
+    speed: isMobile ? 0.3 : 0.5 + zoomLevel * 1.5,
+    distort: isMobile ? 3 : 5 + zoomLevel * 15,
+    hoverDampness: 0.3,
+    mousePosition: isMobile ? { x: 0.5, y: 0.5 } : mousePos,
+    rayCount: isMobile ? 0 : 0
+  }), [isMobile, zoomLevel, mousePos]);
+
   return (
     <div 
-      style={{ height: '100vh', position: 'relative', overflow: 'hidden' }}
+      ref={containerRef}
+      style={{ position: 'relative' }}
       onMouseMove={handleMouseMove}
     >
-      
-      {/* Background with mouse position passed as prop */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <PrismaticBurst
-          animationType="hover"
-          colors={['#0000FF', '#FFFF00', '#000000']}
-          intensity={2}
-          speed={0.5}
-          distort={5}
-          hoverDampness={0.3}
-          mousePosition={mousePos}
-        />
+      {/* Menu - FIRST, highest z-index, always on top */}
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0, 
+        zIndex: 9999, 
+        pointerEvents: 'none',
+        opacity: zoomLevel < 0.3 ? 1 : zoomLevel > 0.7 ? 1 : 0.3,
+        transition: 'opacity 0.4s ease'
+      }}>
+        <div style={{ pointerEvents: 'auto' }}>
+          <StaggeredMenu
+            position="right"
+            items={menuItems}
+            socialItems={socialItems}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor="#fff"
+            openMenuButtonColor="#4c13e7ff"
+            changeMenuColorOnOpen={true}
+            colors={['#B19EEF', '#5227FF']}
+            logoUrl="/greyhound-logo.png"
+            accentColor="#d8db24ff"
+            onMenuOpen={() => console.log('Menu opened')}
+            onMenuClose={() => console.log('Menu closed')}
+          />
+        </div>
       </div>
 
-      {/* Main Content - Centered Text */}
+      {/* Spacer to enable scrolling */}
+      <div style={{ height: '200vh' }} />
+
+      {/* Fixed Portal Background - Only render if visible */}
+      {fadeOpacity > 0.01 && (
+        <div style={{ 
+          position: 'fixed', 
+          inset: 0, 
+          zIndex: 0, 
+          pointerEvents: 'none',
+          opacity: fadeOpacity,
+          willChange: 'transform, opacity',
+          transform: `scale(${1 + portalDepth}) translateZ(0)`,
+          transformOrigin: 'center center'
+        }}>
+          <PrismaticBurst {...burstProps} />
+        </div>
+      )}
+
+      {/* Vignette effect for tunnel feel */}
       <div style={{
-        position: 'absolute',
+        position: 'fixed',
+        inset: 0,
+        zIndex: 1,
+        pointerEvents: 'none',
+        background: `radial-gradient(circle at center, transparent ${60 - zoomLevel * 40}%, rgba(0,0,0,${0.3 + zoomLevel * 0.7}) 100%)`,
+        transition: 'background 0.3s ease'
+      }} />
+
+      {/* Home Title - Fades out as you zoom */}
+      <div style={{
+        position: 'fixed',
         inset: 0,
         zIndex: 5,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        opacity: titleOpacity,
+        transform: `scale(${1 + zoomLevel * 0.5})`,
+        transition: 'opacity 0.3s ease, transform 0.3s ease'
       }}>
         <TextType
           text={[
@@ -72,7 +189,6 @@ export default function Home() {
           showCursor={true}
           cursorCharacter="|"
           textColors={['#FFFF00', '#0000FF', '#FFFFFF']}
-          className="senate-heading"
           style={{
             fontSize: '3rem',
             fontWeight: 'bold',
@@ -83,22 +199,155 @@ export default function Home() {
         />
       </div>
 
-      {/* Menu - directly as child, will handle its own positioning */}
-      <StaggeredMenu
-        position="right"
-        items={menuItems}
-        socialItems={socialItems}
-        displaySocials={true}
-        displayItemNumbering={true}
-        menuButtonColor="#fff"
-        openMenuButtonColor="#4c13e7ff"
-        changeMenuColorOnOpen={true}
-        colors={['#B19EEF', '#5227FF']}
-        logoUrl="/greyhound-logo.png"
-        accentColor="#d8db24ff"
-        onMenuOpen={() => console.log('Menu opened')}
-        onMenuClose={() => console.log('Menu closed')}
-      />
+      {/* Scroll Indicator - Only visible at top */}
+      {zoomLevel < 0.1 && (
+        <div style={{
+          position: 'fixed',
+          bottom: '3rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 6,
+          color: '#fff',
+          fontSize: '1rem',
+          textAlign: 'center',
+          pointerEvents: 'none',
+          animation: 'bounce 2s infinite'
+        }}>
+          <div style={{ marginBottom: '0.5rem' }}>↓</div>
+          <div>Scroll to Enter</div>
+          <style jsx>{`
+            @keyframes bounce {
+              0%, 100% { transform: translateX(-50%) translateY(0); }
+              50% { transform: translateX(-50%) translateY(-10px); }
+            }
+          `}</style>
+        </div>
+      )}
+
+      {/* Main Content - Fades in after portal */}
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 10,
+        opacity: contentOpacity,
+        pointerEvents: contentOpacity > 0.5 ? 'auto' : 'none',
+        transition: 'opacity 0.5s ease',
+        overflowY: 'auto',
+        background: '#0a0a0a'
+      }}>
+        <div style={{
+          minHeight: '100vh',
+          padding: '4rem 2rem',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
+          {/* Events Section */}
+          <section style={{ marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: '2.5rem',
+              color: '#FFFF00',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              Upcoming Events
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2rem'
+            }}>
+              {[
+                { title: 'Homecoming Dance', date: 'October 15th', emoji: '🎉' },
+                { title: 'College Fair', date: 'October 22nd', emoji: '📚' },
+                { title: 'Fall Play Auditions', date: 'November 1st', emoji: '🎭' },
+                { title: 'Spirit Week', date: 'November 8-12th', emoji: '🏈' }
+              ].map((event, i) => (
+                <div key={i} style={{
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  padding: '2rem',
+                  borderRadius: '15px',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'transform 0.3s ease, background 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-5px)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+                }}>
+                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{event.emoji}</div>
+                  <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
+                    {event.title}
+                  </h3>
+                  <p style={{ color: '#aaa', fontSize: '1rem' }}>{event.date}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* About Section */}
+          <section style={{ marginBottom: '4rem' }}>
+            <h2 style={{
+              fontSize: '2.5rem',
+              color: '#0000FF',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              About Senate
+            </h2>
+            <div style={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              padding: '3rem',
+              borderRadius: '15px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <p style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '1rem' }}>
+                Carmel High School Senate is dedicated to representing the student body
+                and creating positive change in our school community.
+              </p>
+              <p style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.8' }}>
+                We organize events, advocate for student needs, and work to make
+                Carmel an amazing place for everyone.
+              </p>
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section>
+            <h2 style={{
+              fontSize: '2.5rem',
+              color: '#FFA500',
+              marginBottom: '2rem',
+              textAlign: 'center'
+            }}>
+              Get In Touch
+            </h2>
+            <div style={{
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              padding: '3rem',
+              borderRadius: '15px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)',
+              textAlign: 'center'
+            }}>
+              <p style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>
+                📧 senate@carmelhs.edu
+              </p>
+              <p style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>
+                📱 Follow us on Instagram
+              </p>
+              <p style={{ color: '#fff', fontSize: '1.2rem' }}>
+                🔗 Check out our Linktree
+              </p>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   );
 }
