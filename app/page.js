@@ -224,7 +224,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Content - Fades in after portal */}
+      {/* Main Content - Timeline replaces all content */}
       <div style={{
         position: 'fixed',
         inset: 0,
@@ -232,120 +232,30 @@ export default function Home() {
         opacity: contentOpacity,
         pointerEvents: contentOpacity > 0.5 ? 'auto' : 'none',
         transition: 'opacity 0.5s ease',
-        overflowY: 'auto',
+        overflow: 'hidden',
         background: '#0a0a0a'
       }}>
         <div style={{
-          minHeight: '100vh',
-          padding: '4rem 2rem',
-          maxWidth: '1200px',
-          margin: '0 auto'
+          height: '100vh',
+          width: '100%',
+          padding: '2rem 1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          {/* Events Section */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h2 style={{
-              fontSize: '2.5rem',
-              color: '#FFFF00',
-              marginBottom: '2rem',
-              textAlign: 'center'
-            }}>
-              Upcoming Events
-            </h2>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2rem'
-            }}>
-              {[
-                { title: 'Homecoming Dance', date: 'October 15th', emoji: '🎉' },
-                { title: 'College Fair', date: 'October 22nd', emoji: '📚' },
-                { title: 'Fall Play Auditions', date: 'November 1st', emoji: '🎭' },
-                { title: 'Spirit Week', date: 'November 8-12th', emoji: '🏈' }
-              ].map((event, i) => (
-                <div key={i} style={{
-                  backgroundColor: 'rgba(255,255,255,0.05)',
-                  padding: '2rem',
-                  borderRadius: '15px',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'transform 0.3s ease, background 0.3s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                }}>
-                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{event.emoji}</div>
-                  <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
-                    {event.title}
-                  </h3>
-                  <p style={{ color: '#aaa', fontSize: '1rem' }}>{event.date}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* About Section */}
-          <section style={{ marginBottom: '4rem' }}>
-            <h2 style={{
-              fontSize: '2.5rem',
-              color: '#0000FF',
-              marginBottom: '2rem',
-              textAlign: 'center'
-            }}>
-              About Senate
-            </h2>
-            <div style={{
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              padding: '3rem',
-              borderRadius: '15px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)'
-            }}>
-              <p style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '1rem' }}>
-                Carmel High School Senate is dedicated to representing the student body
-                and creating positive change in our school community.
-              </p>
-              <p style={{ color: '#fff', fontSize: '1.2rem', lineHeight: '1.8' }}>
-                We organize events, advocate for student needs, and work to make
-                Carmel an amazing place for everyone.
-              </p>
-            </div>
-          </section>
-
-          {/* Contact Section */}
-          <section>
-            <h2 style={{
-              fontSize: '2.5rem',
-              color: '#FFA500',
-              marginBottom: '2rem',
-              textAlign: 'center'
-            }}>
-              Get In Touch
-            </h2>
-            <div style={{
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              padding: '3rem',
-              borderRadius: '15px',
-              border: '1px solid rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              textAlign: 'center'
-            }}>
-              <p style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>
-                📧 senate@carmelhs.edu
-              </p>
-              <p style={{ color: '#fff', fontSize: '1.2rem', marginBottom: '1rem' }}>
-                📱 Follow us on Instagram
-              </p>
-              <p style={{ color: '#fff', fontSize: '1.2rem' }}>
-                🔗 Check out our Linktree
-              </p>
-            </div>
-          </section>
+          {/* TimelineJS Embed - Full height, no outer scroll */}
+          <iframe 
+            src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=https://docs.google.com/spreadsheets/d/e/2PACX-1vSnYcuZqOnSZLGe--jtxM1g6B--8XpZpI0lMUQTU3t-NlZtkESamdtUucNUFJ23jkntmUmBUi5xnXHF/pubhtml&font=Default&lang=en&initial_zoom=2'
+            width='100%' 
+            height='100%'
+            style={{
+              border: 'none',
+              borderRadius: '10px',
+              maxWidth: '1400px'
+            }}
+            allowFullScreen
+            title="Carmel Senate Timeline"
+          />
         </div>
       </div>
     </div>
