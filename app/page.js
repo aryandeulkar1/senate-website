@@ -26,71 +26,148 @@ const socialItems = [
 
 const senators = [
   {
-    image: 'https://i.pravatar.cc/300?img=8',
-    title: 'Alex Johnson',
-    subtitle: 'Senate President',
-    handle: '@alexjohnson',
-    borderColor: '#FFFF00',
-    gradient: 'linear-gradient(145deg, #FFFF00, #000)',
-    committees: ['Executive Board', 'Finance Committee', 'Student Wellness'],
-    bio: 'Leading Carmel Senate with a focus on student voice and community engagement. Passionate about creating inclusive policies and memorable school events.',
-    projects: ['Homecoming 2024', 'Mental Health Awareness Week', 'Budget Reform']
+    image: 'https://i.imgur.com/lkmFFaO.jpeg',
+    title: 'Kaitlyn Ho',
+    subtitle: 'President',
+    handle: '@_kaitlynjoyy',
+    borderColor: 'rgb(250, 250, 11)',
+    gradient: 'linear-gradient(145deg, rgb(137, 137, 26), #392089)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
   },
   {
-    image: 'https://i.pravatar.cc/300?img=11',
-    title: 'Sam Rodriguez',
-    subtitle: 'Vice President',
-    handle: '@samrodriguez',
-    borderColor: '#0000FF',
-    gradient: 'linear-gradient(210deg, #0000FF, #000)',
-    committees: ['Executive Board', 'Academic Affairs', 'Technology Committee'],
-    bio: 'Dedicated to improving academic resources and technology access for all students. Working on innovative solutions for campus connectivity.',
-    projects: ['Study Space Expansion', 'WiFi Improvement Initiative', 'Tutoring Program']
+    image: 'https://i.imgur.com/vb1Urdg.png',
+    title: 'Solomon Seif',
+    subtitle: 'Senior',
+    handle: '@Sollyseif',
+    borderColor: '#4be8e0',
+    gradient: 'linear-gradient(210deg, #46f7f7, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
   },
   {
-    image: 'https://i.pravatar.cc/300?img=3',
-    title: 'Jordan Lee',
-    subtitle: 'Treasurer',
-    handle: '@jordanlee',
-    borderColor: '#10B981',
-    gradient: 'linear-gradient(165deg, #10B981, #000)',
-    committees: ['Finance Committee', 'Fundraising', 'Budget Planning'],
-    bio: 'Managing senate finances with transparency and accountability. Ensuring every dollar supports student initiatives and school improvements.',
-    projects: ['Annual Budget Report', 'Fundraiser Coordination', 'Financial Transparency Portal']
+    image: 'https://i.imgur.com/deaUuh5.png',
+    title: 'Matthan Lemon',
+    subtitle: 'Senior',
+    handle: '@l3monlim3_',
+    borderColor: '#08d978',
+    gradient: 'linear-gradient(165deg, #08d24f, #2c2a4a)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
   },
   {
-    image: 'https://i.pravatar.cc/300?img=16',
-    title: 'Morgan Taylor',
-    subtitle: 'Secretary',
-    handle: '@morgantaylor',
+    image: 'https://i.imgur.com/53tEuwu.png',
+    title: 'Kenzie Lehner',
+    subtitle: 'Senior',
+    handle: '@mkenziehner',
     borderColor: '#F59E0B',
     gradient: 'linear-gradient(195deg, #F59E0B, #000)',
-    committees: ['Communications', 'Social Media', 'Documentation'],
-    bio: 'Keeping the senate organized and transparent through detailed record-keeping and engaging social media presence.',
-    projects: ['Meeting Minutes Archive', 'Instagram Growth Campaign', 'Newsletter Launch']
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
   },
   {
-    image: 'https://i.pravatar.cc/300?img=25',
-    title: 'Casey Williams',
-    subtitle: 'Events Coordinator',
-    handle: '@caseywilliams',
+    image: 'https://i.imgur.com/gKBEtg1.png',
+    title: 'Riley Alderman',
+    subtitle: 'Senior',
+    handle: '@Riley_alderman',
     borderColor: '#8B5CF6',
     gradient: 'linear-gradient(225deg, #8B5CF6, #000)',
-    committees: ['Events Planning', 'Spirit Committee', 'Community Outreach'],
-    bio: 'Creating unforgettable experiences for the Carmel community. From pep rallies to fundraisers, making every event special.',
-    projects: ['Spirit Week Planning', 'Winter Formal', 'Community Service Day']
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
   },
   {
-    image: 'https://i.pravatar.cc/300?img=60',
-    title: 'Riley Chen',
-    subtitle: 'Class Representative',
-    handle: '@rileychen',
+    image: 'https://i.imgur.com/ukHrQfX.png',
+    title: 'Luke Boyce',
+    subtitle: 'Senior',
+    handle: '@lukeboyce_7',
     borderColor: '#06B6D4',
     gradient: 'linear-gradient(135deg, #06B6D4, #000)',
-    committees: ['Student Affairs', 'Diversity & Inclusion', 'Peer Mediation'],
-    bio: 'Representing student voices and advocating for inclusive policies. Building bridges between administration and students.',
-    projects: ['Student Survey Initiative', 'Cultural Heritage Month', 'Peer Support Program']
-  }
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/UBwcbVu.png', // Change number for different avatar
+    title: 'Ethan Lee',
+    subtitle: 'Senior',
+    handle: '@elee.7597',
+    borderColor: '#EC4899', // Pick a new color
+    gradient: 'linear-gradient(145deg, #EC4899, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/p7fAQ33.png',
+    title: 'Advik Chaudhary',
+    subtitle: 'Vice President',
+    handle: '@advik.913',
+    borderColor: '#f9e616',
+    gradient: 'linear-gradient(210deg, #f9e616, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/nuaFkQJ.png',
+    title: 'Kayla Aba',
+    subtitle: 'Junior',
+    handle: '@_kaylaaba',
+    borderColor: '#db16f9',
+    gradient: 'linear-gradient(210deg, #db16f9, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/ag64xtI.png',
+    title: 'Shawn Feng',
+    subtitle: 'Junior',
+    handle: '@shawn_exists',
+    borderColor: '#F97316',
+    gradient: 'linear-gradient(210deg, #F97316, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/9m1SUYV.png',
+    title: 'Divreet Padda',
+    subtitle: 'Junior',
+    handle: '@divreetpadda',
+    borderColor: '#f91616',
+    gradient: 'linear-gradient(210deg, #f91616, #000)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/ia4EN5X.png',
+    title: 'Grant Mu',
+    subtitle: 'Junior',
+    handle: '@grant_mu',
+    borderColor: '#9fa0b0',
+    gradient: 'linear-gradient(210deg, #9fa0b0, #00072c)',
+    committees: ['lorem ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/TrT7Tdv.png',
+    title: 'Shanmukha Polu',
+    subtitle: 'Junior',
+    handle: '@shanmukha_polu',
+    borderColor: '#8ff745',
+    gradient: 'linear-gradient(210deg, #8ff745, #00072c)',
+    committees: ['lorum ipsum'],
+    bio: 'lorem ipsum dolor sit amet',
+    projects: ['enter', 'enter']
+  },
 ];
 
 export default function Home() {
