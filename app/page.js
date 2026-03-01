@@ -444,7 +444,7 @@ export default function Home() {
           minHeight: '100vh',
           width: '100%',
           padding: '4rem 1rem',
-          background: 'linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%)'
+          background: 'linear-gradient(180deg, #0a0a0a 0%, #000000 100%)'
         }}>
           <h2 style={{
             fontSize: '3rem',
