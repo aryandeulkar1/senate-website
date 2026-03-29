@@ -423,7 +423,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1rem' }}>Current Projects</h3>
+                <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '1rem' }}>Clubs & Involvement</h3>
                 <ul style={{ color: '#ddd', fontSize: '1rem', lineHeight: '2', paddingLeft: '1.5rem' }}>
                   {expandedSenator.projects.map((p, i) => <li key={i}>{p}</li>)}
                 </ul>
