@@ -173,7 +173,7 @@ export default function Home() {
     window.TL.Timeline && new window.TL.Timeline(
       'timeline-embed',
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnYcuZqOnSZLGe--jtxM1g6B--8XpZpI0lMUQTU3t-NlZtkESamdtUucNUFJ23jkntmUmBUi5xnXHF/pubhtml',
-      { font: 'georgia-helvetica', initial_zoom: 5, theme: 'contrast', timenav_height_percentage: 25 }
+      { font: 'georgia-helvetica', initial_zoom: 5, theme: 'contrast', timenav_height_percentage: 25, timenav_mobile_height_percentage:  5, height: 150, timenav_height_min: 130}
     );
   }, [timelineScriptReady, zoomLevel]);
 
