@@ -10,6 +10,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+
 export const metadata = {
   title: "Carmel Senate",
   description: "Official Carmel High School Student Senate Website",

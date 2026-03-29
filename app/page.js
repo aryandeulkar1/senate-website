@@ -356,11 +356,11 @@ export default function Home() {
           background: 'linear-gradient(180deg, #0a0a0a 0%, #000000 100%)'
         }}>
           <h2 style={{
-            fontSize: '3rem', color: '#FFFF00', textAlign: 'center',
-            marginBottom: '3rem', textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-            fontFamily: 'Georgia, serif'
+            fontSize: '3rem', color: '#fbff11', textAlign: 'center',
+            marginBottom: '3rem', textShadow: '2px 2px 1px rgba(38, 20, 159, 0.99)',
+            fontFamily: 'Inter'
           }}>
-            Meet Your Senators
+            Meet Your Senators!
           </h2>
           <div onClick={(e) => {
             const card = e.target.closest('.chroma-card');
