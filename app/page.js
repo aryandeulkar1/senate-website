@@ -459,7 +459,7 @@ export default function Home() {
           loop={true} showCursor={true} cursorCharacter="|"
           textColors={['#ebeb1e', '#2929b2', '#c6cddc']}
           style={{
-            fontSize: '3rem', fontWeight: 'bold', textAlign: 'center',
+            fontSize: isMobile ? '2rem' : '3rem', fontWeight: 'bold', textAlign: 'center',
             textShadow: '2px 2px 8px rgba(3, 3, 5, 0.7)', padding: '0 2rem'
           }}
           />
