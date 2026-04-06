@@ -9,20 +9,20 @@ import ChromaGrid from '../components/ChromaGrid';
 
 const PrismaticBurst = dynamic(() => import('../components/PrismaticBurst'), {
   ssr: false,
-  loading: () => <div style={{ background: '#000', position: 'absolute', inset: 0 }} />
+  loading: () => <div style={{ background: '#000000', position: 'absolute', inset: 0 }} />
 });
 
 const menuItems = [
-  { label: 'Home', ariaLabel: 'Go to home page', link: '#home' },
+  { label: 'Home',     ariaLabel: 'Go to home page',   link: '#home' },
   { label: 'Timeline', ariaLabel: 'View our timeline', link: '#timeline' },
   { label: 'Senators', ariaLabel: 'Meet the senators', link: '#senators' },
-  { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' },
+  { label: 'Contact',  ariaLabel: 'Get in touch',      link: '#contact' },
 ];
 
 const socialItems = [
-  { label: 'Twitter', link: 'https://twitter.com' },
+  { label: 'Twitter',   link: 'https://twitter.com' },
   { label: 'Instagram', link: 'https://www.instagram.com/carmel_senate/?next=%2F' },
-  { label: 'Linktree', link: 'https://linktr.ee/CarmelSenate' },
+  { label: 'Linktree',  link: 'https://linktr.ee/CarmelSenate' },
 ];
 
 const senators = [
@@ -104,6 +104,78 @@ const senators = [
     borderColor: '#8ff745', gradient: 'linear-gradient(210deg, #8ff745, #00072c)',
     committees: ['lorum ipsum'], bio: 'lorem ipsum dolor sit amet', projects: ['enter', 'enter']
   },
+  {
+    image: 'https://i.imgur.com/kFcp5B4.png',
+    title: 'Colin Phifer', subtitle: 'sophmore', handle: '@colinphifer',
+    borderColor: '#09571a', gradient: 'linear-gradient(210deg, #09571a, #023e36)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/sAggVy4.png',
+    title: 'Anna Kirsh', subtitle: 'sophmore', handle: '@anna_kirsh',
+    borderColor: '#e5a3d8', gradient: 'linear-gradient(210deg, #e5a3d8, #00072c)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/b87Oy62.png',
+    title: 'Karis Ho', subtitle: 'sophmore', handle: '@_karis08',
+    borderColor: '#ce3df6', gradient: 'linear-gradient(210deg, #ce3df6, #4b021e)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/6SKCaJX.png',
+    title: 'Mitchell Yang', subtitle: 'sophmore', handle: '@mitchellyang',
+    borderColor: '#a7c23c', gradient: 'linear-gradient(210deg, #a7c23c, #002c1d)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/RYxpVb9.png',
+    title: 'Rodion Zuban', subtitle: 'sophmore', handle: '@rodionzuban',
+    borderColor: '#003f6ec7', gradient: 'linear-gradient(210deg, #003f6ec7, #3e2c05)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/V4ZYbBq.jpeg',
+    title: 'Pranad Sowale', subtitle: 'sophmore', handle: '@pranadsowale',
+    borderColor: '#cb8c0f', gradient: 'linear-gradient(210deg, #cb8c0f, #000e56)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/JBhya2c.jpeg',
+    title: 'Aryan Deulkar', subtitle: 'Freshman', handle: '@aryan.deulkar1',
+    borderColor: '#000000', gradient: 'linear-gradient(210deg, #1a1818, #323753)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/dvqmq29.png',
+    title: 'Victor Allen', subtitle: 'Freshman', handle: '@vic.allen_',
+    borderColor: '#000000', gradient: 'linear-gradient(210deg, #ffffff, #3f3f3f)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/AKV6C82.png',
+    title: 'Kate Hillabrandt', subtitle: 'Freshman', handle: '@k.hillabrandt',
+    borderColor: '#e15151', gradient: 'linear-gradient(210deg, #e15151, #002c10)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/39M9AnU.png',
+    title: 'Rishikesh Polu', subtitle: 'Freshman', handle: '',
+    borderColor: '#16ae95', gradient: 'linear-gradient(210deg, #16ae95, #00072c)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/2lA5vAO.png',
+    title: 'Erin An', subtitle: 'Freshman', handle: '@joo.piter0',
+    borderColor: '#44ff00', gradient: 'linear-gradient(210deg, #44ff00, #3e4900)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
+  {
+    image: 'https://i.imgur.com/75Z9JCm.png',
+    title: 'Elise Kim', subtitle: 'Freshman', handle: '@elisekimmy',
+    borderColor: '#94c1eb', gradient: 'linear-gradient(210deg, #94c1eb, #222c00)',
+    committees: ['committees'], bio: 'bio here', projects: ['clubs', 'here']
+  },
 ];
 
 export default function Home() {
@@ -113,6 +185,7 @@ export default function Home() {
   const [expandedSenator, setExpandedSenator] = useState(null);
   const [timelineScriptReady, setTimelineScriptReady] = useState(false);
   const containerRef = useRef(null);
+  const contentPanelRef = useRef(null);
   const lastMouseUpdate = useRef(0);
   const timelineInitialized = useRef(false);
 
@@ -162,6 +235,23 @@ export default function Home() {
     };
   }, []);
 
+  // Hash link navigation — scrolls inside the content panel, not the page
+  useEffect(() => {
+    const handleHashClick = (e) => {
+      const anchor = e.target.closest('a[href^="#"]');
+      if (!anchor) return;
+      const hash = anchor.getAttribute('href');
+      if (!hash || hash === '#home') return;
+      const target = document.querySelector(hash);
+      const panel = contentPanelRef.current;
+      if (!target || !panel) return;
+      e.preventDefault();
+      panel.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+    };
+    document.addEventListener('click', handleHashClick);
+    return () => document.removeEventListener('click', handleHashClick);
+  }, []);
+
   useEffect(() => {
     if (!timelineScriptReady) return;
     if (timelineInitialized.current) return;
@@ -173,7 +263,7 @@ export default function Home() {
     window.TL.Timeline && new window.TL.Timeline(
       'timeline-embed',
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnYcuZqOnSZLGe--jtxM1g6B--8XpZpI0lMUQTU3t-NlZtkESamdtUucNUFJ23jkntmUmBUi5xnXHF/pubhtml',
-      { font: 'georgia-helvetica', initial_zoom: 5, theme: 'contrast', timenav_height_percentage: 25, timenav_mobile_height_percentage:  5, height: 150, timenav_height_min: 130}
+      { font: 'georgia-helvetica', initial_zoom: 5, theme: 'contrast', timenav_height_percentage: 25, timenav_mobile_height_percentage: 5, height: 150, timenav_height_min: 120 }
     );
   }, [timelineScriptReady, zoomLevel]);
 
@@ -183,7 +273,7 @@ export default function Home() {
   const titleOpacity   = useMemo(() => 1 - (zoomLevel * 2), [zoomLevel]);
 
   const burstProps = useMemo(() => ({
-    animationType: isMobile ? "rotate" : "hover",
+    animationType: isMobile ? "rotate3d" : "hover",
     colors: ['#0000FF', '#FFFF00', '#000000'],
     intensity: isMobile ? 1.5 : 2 + zoomLevel * 2,
     speed: isMobile ? 0.3 : 0.5 + zoomLevel * 1.5,
@@ -229,11 +319,8 @@ export default function Home() {
           from { transform: translateY(20px); opacity: 0; }
           to   { transform: translateY(0);    opacity: 1; }
         }
-
-        /* ── TimelineJS overrides ── */
         #timeline-embed .tl-timeline { background: transparent !important; }
         #timeline-embed .tl-timenav  { background: #ffffff !important; }
-
         #timeline-embed .tl-headline,
         #timeline-embed h2.tl-headline,
         #timeline-embed h3.tl-headline,
@@ -261,24 +348,28 @@ export default function Home() {
         }
       `}</style>
 
-      {/* Nav */}
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 9999, pointerEvents: 'none',
-        opacity: zoomLevel < 0.3 ? 1 : zoomLevel > 0.7 ? 1 : 0.3,
-        transition: 'opacity 0.4s ease'
-      }}>
-        <div style={{ pointerEvents: 'auto' }}>
-          <StaggeredMenu
-            position="right" items={menuItems} socialItems={socialItems}
-            displaySocials={true} displayItemNumbering={true}
-            menuButtonColor="#fff" openMenuButtonColor="#4c13e7ff"
-            changeMenuColorOnOpen={true} colors={['#B19EEF', '#5227FF']}
-            logoUrl="/greyhound-logo.png" accentColor="#d8db24ff"
-            onMenuOpen={() => console.log('Menu opened')}
-            onMenuClose={() => console.log('Menu closed')}
-          />
-        </div>
-      </div>
+      {/*
+        StaggeredMenu is a DIRECT child of the root div with no wrapper.
+        It handles its own fixed positioning internally — wrapping it in
+        a fixed container breaks its coordinate system and hides it.
+        zIndex 9999 is set via a style prop; if StaggeredMenu doesn't
+        accept style, it likely sets its own z-index internally.
+      */}
+      <StaggeredMenu
+        position="right"
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials={true}
+        displayItemNumbering={true}
+        menuButtonColor="#fff"
+        openMenuButtonColor="#4c13e7ff"
+        changeMenuColorOnOpen={true}
+        colors={['#B19EEF', '#5227FF']}
+        logoUrl="/greyhound-logo.png"
+        accentColor="#d8db24ff"
+        onMenuOpen={() => console.log('Menu opened')}
+        onMenuClose={() => console.log('Menu closed')}
+      />
 
       <div style={{ height: '200vh' }} />
 
@@ -331,14 +422,19 @@ export default function Home() {
         </div>
       )}
 
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 10,
-        opacity: contentOpacity,
-        pointerEvents: contentOpacity > 0.5 ? 'auto' : 'none',
-        transition: 'opacity 0.5s ease',
-        overflowY: 'auto',
-        background: '#0a0a0a'
-      }}>
+      {/* Content panel — ref'd so hash links can scroll inside it */}
+      <div
+        ref={contentPanelRef}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 10,
+          opacity: contentOpacity,
+          pointerEvents: contentOpacity > 0.5 ? 'auto' : 'none',
+          transition: 'opacity 0.5s ease',
+          overflowY: 'auto',
+          background: '#0a0a0a'
+        }}
+      >
+        {/* id="timeline" is the hash anchor — offsetTop is used by the hash handler */}
         <section id="timeline" style={{
           minHeight: '100vh', width: '100%', padding: '1rem',
           display: 'flex', flexDirection: 'column',
@@ -351,16 +447,22 @@ export default function Home() {
           }} />
         </section>
 
+        {/* id="senators" is the hash anchor */}
         <section id="senators" style={{
           minHeight: '100vh', width: '100%', padding: '4rem 1rem',
           background: 'linear-gradient(180deg, #0a0a0a 0%, #000000 100%)'
         }}>
-          <h2 style={{
-            fontSize: '3rem', color: '#fbff11', textAlign: 'center',
-            marginBottom: '3rem', textShadow: '2px 2px 1px rgba(38, 20, 159, 0.99)',
-            fontFamily: 'Inter'
-          }}>
-            Meet Your Senators!
+          <h2 style={{}}>
+            <TextType
+          text={["Meet your Senators.", "Elected Representatives.", "Great Choices."]}
+          as="h1" typingSpeed={80} deletingSpeed={60} pauseDuration={1000}
+          loop={true} showCursor={true} cursorCharacter="|"
+          textColors={['#ebeb1e', '#2929b2', '#c6cddc']}
+          style={{
+            fontSize: '3rem', fontWeight: 'bold', textAlign: 'center',
+            textShadow: '2px 2px 8px rgba(3, 3, 5, 0.7)', padding: '0 2rem'
+          }}
+          />
           </h2>
           <div onClick={(e) => {
             const card = e.target.closest('.chroma-card');
